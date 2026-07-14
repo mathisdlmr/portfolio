@@ -23,6 +23,8 @@
     <script type="application/ld+json">
         {"@context":"https://schema.org","@type":"Person","name":"Mathis Delmaere","jobTitle":"Future SRE / DevOps Engineer","url":"https://github.com/mathisdlmr","sameAs":["https://github.com/mathisdlmr","https://www.linkedin.com/in/mathis-delmaere-6a6325325/"],"email":"mathis.dlmr@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Université de Technologie de Compiègne"},"knowsAbout":["Kubernetes","DevOps","SRE","GitOps","Infrastructure"]}
     </script>
+    <script src="./i18n.js" defer></script>
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
@@ -111,27 +113,29 @@
                     </div>
                 </div>
                 <div data-reveal class="profile-card">
-                    <div class="profile-card-header"><span class="profile-card-dot"></span>profile.yaml</div>
+                    <div class="profile-card-header">
+                        <span class="profile-card-dot"></span>profile.yaml
+                    </div>
                     <div class="profile-card-body">
                         <div class="profile-fact">
-                            <span class="profile-fact-key" data-i18n="f1k">école</span>
-                            <span class="profile-fact-val" data-i18n="f1v">UTC · Génie Info, filière ISI - dernière année</span>
+                            <span class="profile-fact-key" data-i18n="f1k"></span>
+                            <span class="profile-fact-val" data-i18n="f1v"></span>
                         </div>
                         <div class="profile-fact">
-                            <span class="profile-fact-key" data-i18n="f2k">mineure</span>
-                            <span class="profile-fact-val" data-i18n="f2v">PHITECO - philosophie, technique &amp; cognition</span>
+                            <span class="profile-fact-key" data-i18n="f2k"></span>
+                            <span class="profile-fact-val" data-i18n="f2v"></span>
                         </div>
                         <div class="profile-fact">
-                            <span class="profile-fact-key" data-i18n="f3k">recherche</span>
-                            <span class="profile-fact-val" data-i18n="f3v">Stage de fin d'études · Infra / SRE / Backend / DevOps</span>
+                            <span class="profile-fact-key" data-i18n="f3k"></span>
+                            <span class="profile-fact-val" data-i18n="f3v"></span>
                         </div>
                         <div class="profile-fact">
-                            <span class="profile-fact-key" data-i18n="f4k">dispo</span>
-                            <span class="profile-fact-val" data-i18n="f4v">à partir de février 2027</span>
+                            <span class="profile-fact-key" data-i18n="f4k"></span>
+                            <span class="profile-fact-val" data-i18n="f4v"></span>
                         </div>
                         <div class="profile-fact">
-                            <span class="profile-fact-key" data-i18n="f5k">mobilité</span>
-                            <span class="profile-fact-val" data-i18n="f5v">international ou acteurs français à l'international</span>
+                            <span class="profile-fact-key" data-i18n="f5k"></span>
+                            <span class="profile-fact-val" data-i18n="f5v"></span>
                         </div>
                     </div>
                 </div>
@@ -144,8 +148,15 @@
                 <div class="section-kicker" data-i18n="about_kicker">$ whoami</div>
                 <h2 class="section-title" data-i18n="about_title">Qui je suis</h2>
                 <div class="about-grid">
-                    <p class="about-text" data-i18n="about_p1"></p>
-                    <p class="about-text" data-i18n="about_p2"></p>
+                    <div>
+                        <p class="about-text" data-i18n="about_p1"></p>
+                        <p class="about-text" data-i18n="about_p2"></p>
+                        <p class="about-text" data-i18n="about_p3"></p>
+                    </div>
+                    <div>
+                        <p class="about-text" data-i18n="about_p4"></p>
+                        <p class="about-text" data-i18n="about_p5"></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -161,6 +172,7 @@
                     <div data-reveal>
                         <h3 class="parcours-col-title" data-i18n="path_pro">Professionnel</h3>
 
+                        <!-- TODO 4 : il faut aussi prendre en compte la langue ici, donc retirer le texte et le mettre dans i18n avec une traduction -->
                         <div class="exp-card exp-card--highlight">
                             <div class="exp-card-header">
                                 <div class="exp-card-role-wrap">
@@ -177,44 +189,56 @@
                             <p class="exp-card-desc" data-i18n="pro1_desc"></p>
                             <div class="exp-card-tags">
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#326ce5"></span>Kubernetes</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#0f1689"></span>Helm</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#ef7b4d"></span>ArgoCD</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#00ADD8"></span>Go</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#7B42BC"></span>Terraform</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#e6522c"></span>Prometheus</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#fe651b"></span>Grafana</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#6D41FF"></span>Thanos io</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#2fe62c"></span>Gestion de projet</span>
                             </div>
                         </div>
 
                         <div class="exp-card exp-card--normal">
                             <div class="exp-card-header">
-                                <div class="exp-card-role-wrap"><span class="exp-card-role" data-i18n="pro2_role">Tuteur
-                                        étudiant</span></div>
+                                <div class="exp-card-role-wrap">
+                                    <span class="exp-card-role" data-i18n="pro2_role">Tuteur étudiant</span>
+                                </div>
                                 <span class="exp-card-period" data-i18n="pro2_period">Sept. 2023 → Juin 2025</span>
                             </div>
                             <div class="exp-card-org exp-card-org--pro" data-i18n="pro2_org">UTC · Compiègne</div>
                             <p class="exp-card-desc" data-i18n="pro2_desc"></p>
                             <div class="exp-card-tags">
-                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#3fb950"></span>Pédagogie</span>
-                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#4d9fff"></span>Mathématiques</span>
-                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#3fb950"></span>Informatique</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#e760ff"></span>Pédagogie</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#5ed1ff"></span>Communication</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#faff5e"></span>Adaptabilité</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#ff3737"></span>Mathématiques</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#155cba"></span>Informatique</span>
                             </div>
                         </div>
 
                         <div class="exp-card exp-card--normal">
                             <div class="exp-card-header">
-                                <div class="exp-card-role-wrap"><span class="exp-card-role"
-                                        data-i18n="pro3_role">Stagiaire opérateur</span></div>
+                                <div class="exp-card-role-wrap">
+                                    <span class="exp-card-role" data-i18n="pro3_role">Stagiaire opérateur</span>
+                                </div>
                                 <span class="exp-card-period" data-i18n="pro3_period">Fév. → Mars 2023</span>
                             </div>
-                            <div class="exp-card-org exp-card-org--pro" data-i18n="pro3_org">Chanel · Compiègne - sur
-                                site</div>
+                            <div class="exp-card-org exp-card-org--pro" data-i18n="pro3_org">Chanel · Compiègne - sur site</div>
                             <p class="exp-card-desc" data-i18n="pro3_desc"></p>
-                            <div class="exp-card-tags"><span class="exp-tag"><span class="exp-tag-dot" style="background:#8b96a5"></span>Industrie</span></div>
+                            <div class="exp-card-tags">
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#c2d1e7"></span>Rigueur</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#22b631"></span>Autonomie</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#faff5e"></span>Adaptabilité</span>
+                            </div>
                         </div>
 
                         <div class="exp-card exp-card--normal">
                             <div class="exp-card-header">
-                                <div class="exp-card-role-wrap"><span class="exp-card-role"
-                                        data-i18n="pro4_role">Développement web</span></div>
+                                <div class="exp-card-role-wrap">
+                                    <span class="exp-card-role" data-i18n="pro4_role">Développement web</span>
+                                </div>
                                 <span class="exp-card-period" data-i18n="pro4_period">Fév. → Mars 2023</span>
                             </div>
                             <div class="exp-card-org exp-card-org--pro" data-i18n="pro4_org">Freelance</div>
@@ -223,7 +247,8 @@
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#e34c26"></span>HTML</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#563d7c"></span>CSS</span>
                                 <span class="exp-tag"><span class="exp-tag-dot" style="background:#f1e05a"></span>JS</span>
-                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#3fb950"></span>Hébergement</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#1c7eff"></span>Hébergement (OVH)</span>
+                                <span class="exp-tag"><span class="exp-tag-dot" style="background:#22b631"></span>Autonomie</span>
                             </div>
                         </div>
                     </div>
@@ -243,7 +268,6 @@
             <div class="container k3s-section">
                 <div class="k3s-header">
                     <span class="section-kicker" data-i18n="k3s_kicker">$ man k3s-homelab</span>
-                    <!-- <span class="k3s-live-badge">● <span data-i18n="k3s_live">en prod</span></span> -->
                 </div>
                 <h2 class="k3s-title" data-i18n="k3s_title">Homelab k3s auto-hébergé</h2>
                 <p class="k3s-lead" data-i18n="k3s_lead"></p>
@@ -279,12 +303,14 @@
                                 <div class="stat-label" data-i18n="k3s_s4l"></div>
                             </div>
                         </div>
-                        <a href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener"
-                            class="repo-card">
+                        <div class="stat-card">
+                            <div class="stat-value" data-i18n="k3s_s5v">En Prod</div>
+                            <div class="stat-label" data-i18n="k3s_s5l"></div>
+                        </div>
+                        <a href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener" class="repo-card">
                             <div class="repo-card-name">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                                    <path
-                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z" />
+                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z" />
                                 </svg>
                                 mathisdlmr / <span style="color:var(--accent-blue);font-weight:700">k3s-project</span>
                             </div>
@@ -298,33 +324,48 @@
                 <div data-reveal class="pillars-grid">
                     <div class="pillar-card">
                         <div class="pillar-num">01</div>
-                        <h4 class="pillar-title" data-i18n="p1t">HA géographique</h4>
+                        <h4 class="pillar-title" data-i18n="p1t">High-Availability</h4>
                         <p class="pillar-body" data-i18n="p1b"></p>
-                        <div class="pillar-tags"><span class="pillar-tag">Tailscale</span><span
-                                class="pillar-tag">Cilium</span><span class="pillar-tag">etcd</span><span
-                                class="pillar-tag">HAProxy</span></div>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">Tailscale</span>
+                            <span class="pillar-tag">Cilium</span>
+                            <span class="pillar-tag">HAProxy</span>
+                            <span class="pillar-tag">Longhorn</span>
+                        </div>
                     </div>
                     <div class="pillar-card">
                         <div class="pillar-num">02</div>
-                        <h4 class="pillar-title" data-i18n="p2t">GitOps de bout en bout</h4>
+                        <h4 class="pillar-title" data-i18n="p2t">GitOps</h4>
                         <p class="pillar-body" data-i18n="p2b"></p>
-                        <div class="pillar-tags"><span class="pillar-tag">ArgoCD</span><span
-                                class="pillar-tag">Renovate</span><span class="pillar-tag">GitHub Actions</span></div>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">Ansible</span>
+                            <span class="pillar-tag">ArgoCD</span>
+                            <span class="pillar-tag">Ext. Secrets Op.</span>
+                            <span class="pillar-tag">Infisicale</span>
+                            <span class="pillar-tag">GitHub Actions</span>
+                        </div>
                     </div>
                     <div class="pillar-card">
                         <div class="pillar-num">03</div>
-                        <h4 class="pillar-title" data-i18n="p3t">Observabilité complète</h4>
+                        <h4 class="pillar-title" data-i18n="p3t">Monitoring</h4>
                         <p class="pillar-body" data-i18n="p3b"></p>
-                        <div class="pillar-tags"><span class="pillar-tag">Prometheus</span><span
-                                class="pillar-tag">Grafana</span><span class="pillar-tag">Loki</span><span
-                                class="pillar-tag">Tempo</span><span class="pillar-tag">OTel</span></div>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">Prometheus</span>
+                            <span class="pillar-tag">Grafana Labs</span>
+                            <span class="pillar-tag">EFK</span>
+                            <span class="pillar-tag">OTel</span>
+                        </div>
                     </div>
                     <div class="pillar-card">
                         <div class="pillar-num">04</div>
-                        <h4 class="pillar-title" data-i18n="p4t">En prod, pour de vrai</h4>
+                        <h4 class="pillar-title" data-i18n="p4t">Infra réseau mature</h4>
                         <p class="pillar-body" data-i18n="p4b"></p>
-                        <div class="pillar-tags"><span class="pillar-tag">Cloudflare</span><span
-                                class="pillar-tag">Traefik</span><span class="pillar-tag">HPA</span></div>
+                        <div class="pillar-tags">
+                            <span class="pillar-tag">Cloudflare</span>
+                            <span class="pillar-tag">Traefik</span>
+                            <span class="pillar-tag">Cilium</span>
+                            <span class="pillar-tag">Cert-manager</span>
+                        </div>
                     </div>
                 </div>
                 <p class="k3s-footer" data-i18n="k3s_footer"></p>
@@ -335,7 +376,7 @@
         <section id="stack" class="scroll-target section-border" style="background:var(--bg-alt)">
             <div class="container stack-section">
                 <div class="section-kicker" data-i18n="stack_kicker">$ ls /usr/lib</div>
-                <h2 class="section-title" data-i18n="stack_title">Stack &amp; compétences</h2>
+                <h2 class="section-title" data-i18n="stack_title">Stack & compétences</h2>
                 <p class="stack-note" data-i18n="stack_note"></p>
                 <div data-reveal class="stack-grid" id="stack-grid"></div>
             </div>
@@ -352,22 +393,22 @@
                         <div class="contact-card-label">EMAIL</div>
                         <div class="contact-card-value">mathis.dlmr@gmail.com</div>
                     </a>
-                    <a href="https://github.com/mathisdlmr" target="_blank" rel="noopener"
-                        class="contact-card contact-card--github">
+                    <a href="https://github.com/mathisdlmr" target="_blank" rel="noopener" class="contact-card contact-card--github">
                         <div class="contact-card-label">GITHUB</div>
                         <div class="contact-card-value">github.com/mathisdlmr</div>
                     </a>
-                    <a href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener"
-                        class="contact-card contact-card--linkedin">
+                    <a href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener" class="contact-card contact-card--linkedin">
                         <div class="contact-card-label">LINKEDIN</div>
                         <div class="contact-card-value">in/mathis-delmaere</div>
                     </a>
                 </div>
                 <div class="contact-meta">
-                    <div><span class="contact-meta-label" data-i18n="contact_mobility_label">MOBILITÉ</span> · <span
-                            data-i18n="contact_mobility"></span></div>
-                    <div><span class="contact-meta-label" data-i18n="contact_lang_label">LANGUES</span> · <span
-                            data-i18n="contact_langs"></span></div>
+                    <div>
+                        <span class="contact-meta-label" data-i18n="contact_mobility_label">MOBILITÉ</span> · <span data-i18n="contact_mobility"></span>
+                    </div>
+                    <div>
+                        <span class="contact-meta-label" data-i18n="contact_lang_label">LANGUES</span> · <span data-i18n="contact_langs"></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -380,8 +421,6 @@
         </footer>
 
     </div>
-    <script src="./i18n.js"></script>
-    <script src="./script.js"></script>
 </body>
 
 </html>

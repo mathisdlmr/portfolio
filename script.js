@@ -44,14 +44,18 @@
     els.forEach(el => obs.observe(el));
   }
 
+  // TODO 2 : refaire mais en centrant uniquement sur k3s
+  // On peut utiliser tailscale status pour voir les machines connectées ou un kubectl get nodes
+  // On peut lister les namesapces pour voir les technos du projets
+  // Ou alors utiliser d'autres commandes linux connues mais dont on custom la sortie pour faire un côté "dédicace" (exemple : uname -a, whoami, top, lsblk, etc.)
   function initTerminal() {
     const body = document.getElementById("terminal-body");
     if (!body) return;
     const rows = [
       [{t:"$ ",c:"t-prompt"},{t:"whoami",c:"t-cmd"}],
-      [{t:"mathis · 5e année ISI @ UTC - SRE / DevOps / Infra",c:"t-output"}],
+      [{t:"mathis delmaere · 5e année ISI @ UTC - SRE / DevOps / Infra",c:"t-output"}],
       [{t:" ",c:"t-output"}],
-      [{t:"$ ",c:"t-prompt"},{t:"cat about.md",c:"t-cmd"}],
+      [{t:"$ ",c:"t-prompt"},{t:"uname -a",c:"t-cmd"}],
       [{t:"# infra résiliente · GitOps · observabilité",c:"t-blue"}],
       [{t:"# je casse, je répare, j'automatise des clusters",c:"t-dim"}],
       [{t:" ",c:"t-output"}],
@@ -62,7 +66,8 @@
       [{t:"nuc-b03   ",c:"t-output"},{t:"Ready",c:"t-green"},{t:"    control-plane   187d",c:"t-output"}],
       [{t:" ",c:"t-output"}],
       [{t:"$ ",c:"t-prompt"},{t:"kubectl top pods -n skiut | tail -1",c:"t-cmd"}],
-      [{t:"skiut-backend   142m   ",c:"t-output"},{t:"~150 req/s",c:"t-orange"},{t:" · peak ",c:"t-output"},{t:"200",c:"t-orange"}]
+      [{t:"skiut-backend   142m   ",c:"t-output"},{t:"~150 req/s",c:"t-orange"},{t:" · peak ",c:"t-output"},{t:"200",c:"t-orange"}],
+      [{t:" ",c:"t-output"}]
     ];
     const total = rows.reduce((n,r) => n+r.reduce((m,s) => m+s.t.length,0),0);
     let chars=0, typing=false, iv;
@@ -108,14 +113,15 @@
     });
   }
 
+  // TODO 3 : il faut prendre la langue en compte ici
   const ASSO_DATA = [
-    {n:1,hl:true,tags:[["Management","#f0883e"],["25 pers.","#f0883e"],["Rigueur","#f0883e"]]},
-    {n:2,hl:true,tags:[["TypeScript","#3178c6"],["Laravel","#ff2d20"],["Docker","#2496ed"],["CI/CD","#3fb950"],["Self-Hosted","#3fb950"]]},
-    {n:3,hl:false,tags:[["Laravel","#ff2d20"],["React Native","#61dafb"],["OAuth","#4d9fff"]]},
-    {n:4,hl:false,tags:[["React","#61dafb"],["Raspberry Pi","#c51a4a"],["NFC","#8b96a5"]]},
-    {n:5,hl:false,tags:[["Négociation","#f0883e"],["Stock","#8b96a5"]]},
-    {n:6,hl:false,tags:[["Communication","#4d9fff"],["Événementiel","#f0883e"]]},
-    {n:7,hl:false,tags:[["Expo","#4d9fff"],["Laravel","#ff2d20"],["React Native","#61dafb"]]},
+    {n:1,hl:true,tags:[["Management","#f0883e"],["25 pers.","#f0883e"],["Gestion de projet","#2fe62c"],["Rigueur","#c2d1e7"]]},
+    {n:2,hl:true,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["Docker","#2496ed"],["CI/CD","#3fb950"],["Self-Hosted","#3fb950"]]},
+    {n:3,hl:false,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
+    {n:4,hl:false,tags:[["Gestion de projet","#2fe62c"],["Laravel","#ff2d20"],["React","#61dafb"],["Raspberry Pi","#c51a4a"],["NFC","#8b96a5"]]},
+    {n:5,hl:false,tags:[["Autonomie","#22b631"],["Négociation","#f0883e"],["Rigueur","#c2d1e7"]]},
+    {n:6,hl:false,tags:[["Communication","#4d9fff"],["Planification","#ffffff"],["Management","#f0883e"],["Événementiel","#31acff"]]},
+    {n:7,hl:false,tags:[["Laravel","#ff2d20"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
     {n:8,hl:false,tags:[["Flutter","#47c5fb"],["Laravel","#ff2d20"]]}
   ];
 
