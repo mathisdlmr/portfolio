@@ -39,9 +39,9 @@ const DICT = {
     sg1:"Langages",sg2:"Frameworks web",sg3:"DevOps & Infra",sg4:"Observabilité",sg5:"Bases de données",sg6:"Cloud & réseau",
     contact_kicker:"$ ip address",contact_title:"Parlons-en",
     contact_lead:"Un stage à me proposer, une question, ou juste envie d'échanger sur l'infra ? Le plus rapide est l'email, et mon GitHub raconte le reste.",
-    contact_mobility_label:"MOBILITÉ",contact_mobility:"international, ou acteurs français travaillant à l'international",
+    contact_mobility_label:"MOBILITÉ",contact_mobility:"international ou en France avec des acteurs internationaux",
     contact_lang_label:"LANGUES",contact_langs:"Français (natif) · Anglais (C1)",
-    footer_note:"conçu, hébergé et servi depuis mon cluster k3s",
+    footer_note:"hébergé et servi depuis mon cluster k3s",
     toggle_open:"Réduire",toggle_closed:"Voir le détail",
     // Pro experiences
     pro1_role:"Ingénieur SRE / DevOps",pro1_org:"Stage · Padoa - Paris",pro1_period:"Sept. 2025 → Fév. 2026",
