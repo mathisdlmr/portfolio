@@ -44,26 +44,21 @@
     els.forEach(el => obs.observe(el));
   }
 
-  // TODO 2 : refaire mais en centrant uniquement sur k3s
-  // On peut utiliser tailscale status pour voir les machines connectées ou un kubectl get nodes
-  // On peut lister les namesapces pour voir les technos du projets
-  // Ou alors utiliser d'autres commandes linux connues mais dont on custom la sortie pour faire un côté "dédicace" (exemple : uname -a, whoami, top, lsblk, etc.)
   function initTerminal() {
     const body = document.getElementById("terminal-body");
     if (!body) return;
     const rows = [
-      [{t:"$ ",c:"t-prompt"},{t:"whoami",c:"t-cmd"}],
-      [{t:"mathis delmaere · 5e année ISI @ UTC - SRE / DevOps / Infra",c:"t-output"}],
+      [{t:"$ ",c:"t-prompt"},{t:"tailscale status",c:"t-cmd"}],
+      [{t:"100.64.0.1   ",c:"t-output"},{t:"nuc-01",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
+      [{t:"100.64.0.2   ",c:"t-output"},{t:"nuc-02",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
+      [{t:"100.64.0.3   ",c:"t-output"},{t:"nuc-03",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
       [{t:" ",c:"t-output"}],
-      [{t:"$ ",c:"t-prompt"},{t:"uname -a",c:"t-cmd"}],
-      [{t:"# infra résiliente · GitOps · observabilité",c:"t-blue"}],
-      [{t:"# je casse, je répare, j'automatise des clusters",c:"t-dim"}],
-      [{t:" ",c:"t-output"}],
-      [{t:"$ ",c:"t-prompt"},{t:"kubectl get nodes",c:"t-cmd"}],
-      [{t:"NAME      STATUS   ROLES           AGE",c:"t-dim"}],
-      [{t:"nuc-a01   ",c:"t-output"},{t:"Ready",c:"t-green"},{t:"    control-plane   241d",c:"t-output"}],
-      [{t:"nuc-b02   ",c:"t-output"},{t:"Ready",c:"t-green"},{t:"    control-plane   241d",c:"t-output"}],
-      [{t:"nuc-b03   ",c:"t-output"},{t:"Ready",c:"t-green"},{t:"    control-plane   187d",c:"t-output"}],
+      [{t:"$ ",c:"t-prompt"},{t:"argocd app list -o name",c:"t-cmd"}],
+      [{t:"cloudflared         ",c:"t-blue"},{t:"fluent-operator          ",c:"t-blue"},{t:"longhorn",c:"t-blue"}],
+      [{t:"traefik             ",c:"t-blue"},{t:"loki                     ",c:"t-blue"},{t:"skiut",c:"t-blue"}],
+      [{t:"cert-manager        ",c:"t-blue"},{t:"alloy                    ",c:"t-blue"},{t:"affine",c:"t-blue"}],
+      [{t:"external-secrets    ",c:"t-blue"},{t:"tempo",c:"t-blue"}],
+      [{t:"eck-operator        ",c:"t-blue"},{t:"kube-prometheus-stack",c:"t-blue"}],
       [{t:" ",c:"t-output"}],
       [{t:"$ ",c:"t-prompt"},{t:"kubectl top pods -n skiut | tail -1",c:"t-cmd"}],
       [{t:"skiut-backend   142m   ",c:"t-output"},{t:"~150 req/s",c:"t-orange"},{t:" · peak ",c:"t-output"},{t:"200",c:"t-orange"}],
@@ -113,14 +108,13 @@
     });
   }
 
-  // TODO 3 : il faut prendre la langue en compte ici
   const ASSO_DATA = [
-    {n:1,hl:true,tags:[["Management","#f0883e"],["25 pers.","#f0883e"],["Gestion de projet","#2fe62c"],["Rigueur","#c2d1e7"]]},
+    {n:1,hl:true,tags:[["i18n:tag_mgmt","#f0883e"],["i18n:tag_25pers","#f0883e"],["i18n:tag_projmgmt","#2fe62c"],["i18n:tag_rigor","#c2d1e7"]]},
     {n:2,hl:true,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["Docker","#2496ed"],["CI/CD","#3fb950"],["Self-Hosted","#3fb950"]]},
     {n:3,hl:false,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
-    {n:4,hl:false,tags:[["Gestion de projet","#2fe62c"],["Laravel","#ff2d20"],["React","#61dafb"],["Raspberry Pi","#c51a4a"],["NFC","#8b96a5"]]},
-    {n:5,hl:false,tags:[["Autonomie","#22b631"],["Négociation","#f0883e"],["Rigueur","#c2d1e7"]]},
-    {n:6,hl:false,tags:[["Communication","#4d9fff"],["Planification","#ffffff"],["Management","#f0883e"],["Événementiel","#31acff"]]},
+    {n:4,hl:false,tags:[["i18n:tag_projmgmt","#2fe62c"],["Laravel","#ff2d20"],["React","#61dafb"],["Raspberry Pi","#c51a4a"],["NFC","#8b96a5"]]},
+    {n:5,hl:false,tags:[["i18n:tag_autonomy","#22b631"],["i18n:tag_negotiation","#f0883e"],["i18n:tag_rigor","#c2d1e7"]]},
+    {n:6,hl:false,tags:[["i18n:tag_communication","#4d9fff"],["i18n:tag_planning","#ffffff"],["i18n:tag_mgmt","#f0883e"],["i18n:tag_events","#31acff"]]},
     {n:7,hl:false,tags:[["Laravel","#ff2d20"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
     {n:8,hl:false,tags:[["Flutter","#47c5fb"],["Laravel","#ff2d20"]]}
   ];
@@ -132,9 +126,12 @@
     ASSO_DATA.forEach(a => {
       const cls = a.hl ? "exp-card exp-card--highlight" : "exp-card exp-card--normal";
       const starSvg = a.hl ? '<span class="star-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--accent-orange)"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"></path></svg></span>' : '';
-      const tagsHtml = a.tags.map(([name,color]) =>
-        `<span class="exp-tag"><span class="exp-tag-dot" style="background:${color}"></span>${name}</span>`
-      ).join("");
+      const tagsHtml = a.tags.map(([name,color]) => {
+        const label = name.startsWith("i18n:")
+          ? `<span data-i18n="${name.slice(5)}"></span>`
+          : name;
+        return `<span class="exp-tag"><span class="exp-tag-dot" style="background:${color}"></span>${label}</span>`;
+      }).join("");
       container.insertAdjacentHTML("beforeend",
         `<div class="${cls}">
           <div class="exp-card-header">
