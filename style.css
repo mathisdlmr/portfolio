@@ -409,16 +409,24 @@ a:hover .social-ico { border-color: var(--border-hover); }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 760px) {
-  .main-nav { display: none !important; }
-  .header-github { display: none !important; }
-  .nav-toggle { display: inline-flex !important; }
+  .main-nav { display: none; }
+  .header-github { display: none; }
+  .nav-toggle { display: inline-flex; }
   .main-nav.open {
-    display: flex !important; position: absolute; top: 100%; left: 0; right: 0;
-    flex-direction: column; gap: 0 !important;
+    display: flex; position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0;
     background: #0d1117; border-bottom: 1px solid var(--border); padding: 6px 0;
   }
   .main-nav.open a { padding: 12px 24px; border-top: 1px solid #161b23; }
-  .hero-tags span { font-size: 11px !important; padding: 5px 9px !important; }
-  .parcours-grid { grid-template-columns: 1fr !important; }
-  .asso-grid { grid-template-columns: 1fr !important; }
+  .scroll-target { scroll-margin-top: 60px; max-width: 90%; margin-left: auto; margin-right: auto; }
+  .hero-grid { padding: 24px 0 24px; gap: 24px; }
+  .hero-tags span { font-size: 11px; padding: 5px 9px; }
+  .about-section { padding: 24px 0; }
+  .parcours-section { padding: 24px 0; }
+  .parcours-grid { grid-template-columns: 1fr; }
+  .asso-grid { grid-template-columns: 1fr; }
+  .k3s-section { padding: 24px 0; }
+  .k3s-grid { margin-bottom: 24px; }
+  .stack-section { padding: 24px 0; }
+  .contact-section { padding: 24px 0; }
 }
