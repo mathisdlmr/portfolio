@@ -159,16 +159,16 @@
       ["Spring Boot","springboot"],["Expo","expo"],["Flutter","flutter"]]},
     {title:"sg3",color:"#f0883e",icon:"M21 8v8a2 2 0 0 1-1 1.73l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.73l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8zM3.3 7 12 12l8.7-5M12 22V12",items:[
       ["Docker","docker"],["Kubernetes","kubernetes"],["Helm","helm"],["ArgoCD","argo"],
-      ["GitHub Actions","githubactions"],["GitLab CI","gitlab"],["Terraform","terraform"],
+      ["GitHub Actions","githubactions"],["GitLab CI","gitlab"],["Ansible","ansible"],
       ["Cilium","cilium"],["HAProxy","", "#006ba7"],["Renovate","renovate"]]},
     {title:"sg4",color:"#4d9fff",icon:"M22 12h-4l-3 9L9 3l-3 9H2",items:[
       ["Prometheus","prometheus"],["Grafana","grafana"],["Loki","grafana"],["Alloy","grafana"],
-      ["Tempo","grafana"],["Thanos","", "#6D41FF"],["OpenTelemetry","opentelemetry"]]},
+      ["Tempo","grafana"],["Thanos","", "#6D41FF"],["OpenTelemetry","opentelemetry"],["ElasticSearch","elastic"],["Fluentbit","fluentbit"]]},
     {title:"sg5",color:"#3fb950",icon:"M4 5c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3zM4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3",items:[
       ["PostgreSQL","postgresql"],["MySQL","mysql"],["SQLite","sqlite"],["MongoDB","mongodb"]]},
     {title:"sg6",color:"#f0883e",icon:"M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z",items:[
       ["Cloudflare","cloudflare"],["Traefik","traefikproxy"],["Nginx","nginx"],["Apache","apache"],
-      ["cert-manager","", "#005fee"],["Tailscale","tailscale"]]}
+      ["cert-manager","", "#005fee"],["Tailscale","tailscale"],["Infisical","","#ecf939"]]}
   ];
 
   function buildStack() {
