@@ -1,6 +1,7 @@
 (function () {
   "use strict";
   const STORAGE_KEY = "mdlmr-lang";
+  const RACK_UNIT = 44; // 1U, en px : toute la page se cale sur ce pas
   let currentLang = "fr";
 
   function T(key) { return DICT[currentLang][key] || DICT.fr[key] || key; }
@@ -13,13 +14,16 @@
       el.textContent = T(el.getAttribute("data-i18n"));
     });
     document.querySelectorAll(".lang-btn").forEach(btn => {
-      btn.classList.toggle("active", btn.getAttribute("data-set-lang") === lang);
+      const on = btn.getAttribute("data-set-lang") === lang;
+      btn.classList.toggle("active", on);
+      btn.setAttribute("aria-pressed", on);
     });
     document.querySelectorAll(".asso-toggle").forEach(btn => {
-      const desc = btn.closest(".exp-card").querySelector(".asso-desc");
+      const desc = btn.closest(".entry").querySelector(".asso-desc");
       const isOpen = desc && desc.classList.contains("open");
-      btn.querySelector(".toggle-text").textContent = isOpen ? T("toggle_open") : T("toggle_closed");
+      btn.textContent = isOpen ? T("toggle_open") : T("toggle_closed");
     });
+    mountDevices();
   }
 
   function initLang() {
@@ -27,176 +31,118 @@
     setLang(currentLang);
   }
 
-  function initNav() {
-    const toggle = document.getElementById("nav-toggle");
-    const nav = document.getElementById("main-nav");
-    if (!toggle||!nav) return;
-    toggle.addEventListener("click", () => nav.classList.toggle("open"));
-    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => nav.classList.remove("open")));
+  // Chaque équipement occupe un nombre entier d'unités de baie :
+  // on arrondit sa hauteur au U supérieur et on l'écrit sur l'oreille.
+  function mountDevices() {
+    document.querySelectorAll(".device").forEach(dev => {
+      dev.style.minHeight = "";
+      const u = Math.max(1, Math.ceil(dev.offsetHeight / RACK_UNIT));
+      dev.style.minHeight = (u * RACK_UNIT) + "px";
+      dev.setAttribute("data-u", u + "U");
+    });
   }
 
-  function initReveal() {
-    const els = document.querySelectorAll("[data-reveal]");
-    if (!els.length) return;
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => e.target.classList.toggle("visible", e.isIntersecting));
-    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
-    els.forEach(el => obs.observe(el));
+  function initRack() {
+    let t;
+    window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(mountDevices, 100); });
+    if (document.fonts) document.fonts.ready.then(mountDevices);
+    window.addEventListener("load", mountDevices);
   }
 
-  function initTerminal() {
-    const body = document.getElementById("terminal-body");
-    if (!body) return;
-    const rows = [
-      [{t:"$ ",c:"t-prompt"},{t:"tailscale status",c:"t-cmd"}],
-      [{t:"100.64.0.1   ",c:"t-output"},{t:"nuc-01",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
-      [{t:"100.64.0.2   ",c:"t-output"},{t:"nuc-02",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
-      [{t:"100.64.0.3   ",c:"t-output"},{t:"nuc-03",c:"t-blue"},{t:"   linux   idle",c:"t-dim"}],
-      [{t:" ",c:"t-output"}],
-      [{t:"$ ",c:"t-prompt"},{t:"argocd app list -o name",c:"t-cmd"}],
-      [{t:"cloudflared         ",c:"t-blue"},{t:"fluent-operator          ",c:"t-blue"},{t:"longhorn",c:"t-blue"}],
-      [{t:"traefik             ",c:"t-blue"},{t:"loki                     ",c:"t-blue"},{t:"skiut",c:"t-blue"}],
-      [{t:"cert-manager        ",c:"t-blue"},{t:"alloy                    ",c:"t-blue"},{t:"affine",c:"t-blue"}],
-      [{t:"external-secrets    ",c:"t-blue"},{t:"tempo",c:"t-blue"}],
-      [{t:"eck-operator        ",c:"t-blue"},{t:"kube-prometheus-stack",c:"t-blue"}],
-      [{t:" ",c:"t-output"}],
-      [{t:"$ ",c:"t-prompt"},{t:"kubectl top pods -n skiut | tail -1",c:"t-cmd"}],
-      [{t:"skiut-backend   142m   ",c:"t-output"},{t:"~150 req/s",c:"t-orange"},{t:" · peak ",c:"t-output"},{t:"200",c:"t-orange"}],
-      [{t:" ",c:"t-output"}]
-    ];
-    const total = rows.reduce((n,r) => n+r.reduce((m,s) => m+s.t.length,0),0);
-    let chars=0, typing=false, iv;
-
-    function render() {
-      body.innerHTML="";
-      let budget=chars;
-      for(let i=0;i<rows.length;i++){
-        if(budget<=0&&i>0)break;
-        const line=document.createElement("div"); line.className="terminal-line";
-        for(const seg of rows[i]){
-          if(budget<=0)break;
-          const span=document.createElement("span"); span.className=seg.c;
-          const len=Math.min(seg.t.length,budget);
-          span.textContent=seg.t.slice(0,len); line.appendChild(span); budget-=len;
-        }
-        body.appendChild(line);
-        if(budget<=0)break;
-      }
-      const cur=document.createElement("div"); cur.className="terminal-line";
-      cur.innerHTML='<span class="t-prompt">$ </span><span class="t-cursor">▊</span>';
-      body.appendChild(cur);
+  // Panneau de brassage : le port de la section en cours est « branché ».
+  function initPatchPanel() {
+    const ports = [...document.querySelectorAll(".port")];
+    if (!ports.length) return;
+    let ticking = false;
+    function update() {
+      const probe = window.scrollY + window.innerHeight * 0.35;
+      let current = null;
+      ports.forEach(p => {
+        const section = document.querySelector(p.getAttribute("href"));
+        if (section && section.offsetTop <= probe) current = p;
+      });
+      ports.forEach(p => {
+        if (p === current) p.setAttribute("aria-current", "location");
+        else p.removeAttribute("aria-current");
+      });
+      ticking = false;
     }
-    render();
-    const obs = new IntersectionObserver(entries => {
-      if(entries[0].isIntersecting && !typing){
-        typing=true;
-        iv=setInterval(()=>{chars++;if(chars>=total){clearInterval(iv);chars=total;}render();},40);
-      }
-    },{threshold:0.1});
-    obs.observe(body);
+    window.addEventListener("scroll", () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
   }
 
   function initAccordions() {
     document.querySelectorAll(".asso-toggle").forEach(btn => {
       btn.addEventListener("click", () => {
-        const card=btn.closest(".exp-card"), desc=card.querySelector(".asso-desc"),
-              chevron=btn.querySelector(".asso-chevron"), textEl=btn.querySelector(".toggle-text");
-        const isOpen=desc.classList.toggle("open");
-        if(chevron) chevron.classList.toggle("open",isOpen);
-        if(textEl) textEl.textContent = isOpen ? T("toggle_open") : T("toggle_closed");
+        const desc = btn.closest(".entry").querySelector(".asso-desc");
+        const isOpen = desc.classList.toggle("open");
+        btn.setAttribute("aria-expanded", isOpen);
+        btn.textContent = isOpen ? T("toggle_open") : T("toggle_closed");
+        mountDevices();
       });
     });
   }
 
+  // `tape` : ce qui est écrit sur l'étiquette du tiroir ; `hl` : LED allumée (temps fort).
   const ASSO_DATA = [
-    {n:1,hl:true,tags:[["i18n:tag_mgmt","#f0883e"],["i18n:tag_25pers","#f0883e"],["i18n:tag_projmgmt","#2fe62c"],["i18n:tag_rigor","#c2d1e7"]]},
-    {n:2,hl:true,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["Docker","#2496ed"],["CI/CD","#3fb950"],["Self-Hosted","#3fb950"]]},
-    {n:3,hl:false,tags:[["Laravel","#ff2d20"],["TypeScript","#3178c6"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
-    {n:4,hl:false,tags:[["i18n:tag_projmgmt","#2fe62c"],["Laravel","#ff2d20"],["React","#61dafb"],["Raspberry Pi","#c51a4a"],["NFC","#8b96a5"]]},
-    {n:5,hl:false,tags:[["i18n:tag_autonomy","#22b631"],["i18n:tag_negotiation","#f0883e"],["i18n:tag_rigor","#c2d1e7"]]},
-    {n:6,hl:false,tags:[["i18n:tag_communication","#4d9fff"],["i18n:tag_planning","#ffffff"],["i18n:tag_mgmt","#f0883e"],["i18n:tag_events","#31acff"]]},
-    {n:7,hl:false,tags:[["Laravel","#ff2d20"],["Expo","#4d9fff"],["React Native","#61dafb"]]},
-    {n:8,hl:false,tags:[["Flutter","#47c5fb"],["Laravel","#ff2d20"]]}
+    {n:1, tape:"pic'asso", hl:true, tools:""},
+    {n:2, tape:"ski'ut", hl:true, tools:"Laravel, TypeScript, Expo, Docker, CI/CD"},
+    {n:3, tape:"ski'utc", tools:"Laravel, TypeScript, Expo, React Native"},
+    {n:4, tape:"pic'asso", tools:"Laravel, React, Raspberry Pi, NFC"},
+    {n:5, tape:"pic'asso", tools:""},
+    {n:6, tape:"compiègne en lumière", tools:""},
+    {n:7, tape:"integ", tools:"Laravel, Expo, React Native"},
+    {n:8, tape:"integ fév", tools:"Flutter, Laravel"}
   ];
 
   function buildAsso() {
-    const container = document.getElementById("asso-list");
-    if (!container) return;
-    container.innerHTML = "";
+    const list = document.getElementById("asso-list");
+    if (!list) return;
+    list.innerHTML = "";
     ASSO_DATA.forEach(a => {
-      const cls = a.hl ? "exp-card exp-card--highlight" : "exp-card exp-card--normal";
-      const starSvg = a.hl ? '<span class="star-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="var(--accent-orange)"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z"></path></svg></span>' : '';
-      const tagsHtml = a.tags.map(([name,color]) => {
-        const label = name.startsWith("i18n:")
-          ? `<span data-i18n="${name.slice(5)}"></span>`
-          : name;
-        return `<span class="exp-tag"><span class="exp-tag-dot" style="background:${color}"></span>${label}</span>`;
-      }).join("");
-      container.insertAdjacentHTML("beforeend",
-        `<div class="${cls}">
-          <div class="exp-card-header">
-            <div class="exp-card-role-wrap"><span class="exp-card-role" data-i18n="asso${a.n}_role"></span>${starSvg}</div>
-            <span class="exp-card-period" data-i18n="asso${a.n}_period"></span>
+      const tools = a.tools ? `<p class="tools-line">${a.tools}</p>` : "";
+      const led = a.hl ? `<span class="led led--on" style="--i:${6 + a.n}" aria-hidden="true"></span>` : `<span class="led" aria-hidden="true"></span>`;
+      list.insertAdjacentHTML("beforeend",
+        `<li class="entry" id="entry-asso${a.n}">
+          <span class="handle" aria-hidden="true"></span>
+          <div class="sled-body">
+            <p class="sled-top"><span class="tape tape--sm">${a.tape}</span><span class="period" data-i18n="asso${a.n}_period"></span>${led}</p>
+            <h4 class="role" data-i18n="asso${a.n}_role"></h4>
+            <p class="org" data-i18n="asso${a.n}_org"></p>
+            ${tools}
+            <div class="asso-desc" id="asso-desc-${a.n}"><p class="desc" data-i18n="asso${a.n}_desc"></p></div>
+            <button class="asso-toggle" aria-expanded="false" aria-controls="asso-desc-${a.n}">${T("toggle_closed")}</button>
           </div>
-          <div class="exp-card-org exp-card-org--asso" data-i18n="asso${a.n}_org"></div>
-          <div class="exp-card-tags">${tagsHtml}</div>
-          <div class="asso-desc"><p class="exp-card-desc" data-i18n="asso${a.n}_desc"></p></div>
-          <button class="asso-toggle"><span class="toggle-text">${T("toggle_closed")}</span>
-            <svg class="asso-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
-          </button>
-        </div>`
+        </li>`
       );
     });
   }
 
-  const SI = (slug) => slug ? `https://cdn.simpleicons.org/${slug}` : "";
   const STACK_GROUPS = [
-    {title:"sg1",color:"#4d9fff",icon:"M16 18l6-6-6-6M8 6l-6 6 6 6",items:[
-      ["Python","python"],["PHP","php"],["JavaScript","javascript"],["TypeScript","typescript"],
-      ["Go","go"],["Bash","gnubash"],["Java","openjdk"],["C","c"]]},
-    {title:"sg2",color:"#3fb950",icon:"M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",items:[
-      ["React / RN","react"],["Next.js","nextdotjs"],["Laravel","laravel"],["Node.js","nodedotjs"],
-      ["Spring Boot","springboot"],["Expo","expo"],["Flutter","flutter"]]},
-    {title:"sg3",color:"#f0883e",icon:"M21 8v8a2 2 0 0 1-1 1.73l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.73l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8zM3.3 7 12 12l8.7-5M12 22V12",items:[
-      ["Docker","docker"],["Kubernetes","kubernetes"],["Helm","helm"],["ArgoCD","argo"],
-      ["GitHub Actions","githubactions"],["GitLab CI","gitlab"],["Ansible","ansible"],
-      ["Cilium","cilium"],["HAProxy","", "#006ba7"],["Renovate","renovate"]]},
-    {title:"sg4",color:"#4d9fff",icon:"M22 12h-4l-3 9L9 3l-3 9H2",items:[
-      ["Prometheus","prometheus"],["Grafana","grafana"],["Loki","grafana"],["Alloy","grafana"],
-      ["Tempo","grafana"],["Thanos","", "#6D41FF"],["OpenTelemetry","opentelemetry"],["ElasticSearch","elastic"],["Fluentbit","fluentbit"]]},
-    {title:"sg5",color:"#3fb950",icon:"M4 5c0 1.66 3.58 3 8 3s8-1.34 8-3-3.58-3-8-3-8 1.34-8 3zM4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3",items:[
-      ["PostgreSQL","postgresql"],["MySQL","mysql"],["SQLite","sqlite"],["MongoDB","mongodb"]]},
-    {title:"sg6",color:"#f0883e",icon:"M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z",items:[
-      ["Cloudflare","cloudflare"],["Traefik","traefikproxy"],["Nginx","nginx"],["Apache","apache"],
-      ["cert-manager","", "#005fee"],["Tailscale","tailscale"],["Infisical","","#ecf939"]]}
+    {title:"sg3", items:["Docker","Kubernetes","Helm","ArgoCD","GitHub Actions","GitLab CI","Ansible","Cilium","HAProxy","Renovate","Terraform"]},
+    {title:"sg4", items:["Prometheus","Grafana","Loki","Alloy","Tempo","Thanos","OpenTelemetry","Elasticsearch","Fluent Bit"]},
+    {title:"sg6", items:["Cloudflare","Traefik","cert-manager","Tailscale","Infisical","Nginx","Apache"]},
+    {title:"sg1", items:["Go","Python","Bash","TypeScript","JavaScript","PHP","Java","C"]},
+    {title:"sg2", items:["Laravel","React / React Native","Next.js","Node.js","Spring Boot","Expo","Flutter"]},
+    {title:"sg5", items:["PostgreSQL","MySQL","SQLite","MongoDB"]}
   ];
 
   function buildStack() {
-    const grid = document.getElementById("stack-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
+    const body = document.getElementById("stack-grid");
+    if (!body) return;
+    body.innerHTML = "";
     STACK_GROUPS.forEach(g => {
-      const itemsHtml = g.items.map(([name, slug, altColor]) => {
-        const icon = slug
-          ? `<img src="${SI(slug)}" alt="" width="15" height="15" loading="lazy" style="display:block;flex:none">`
-          : `<span class="stack-item-dot" style="background:${altColor || g.color}"></span>`;
-        return `<span class="stack-item">${icon}${name}</span>`;
-      }).join("");
-      grid.insertAdjacentHTML("beforeend",
-        `<div class="stack-group">
-          <div class="stack-group-header">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="${g.color}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="${g.icon}"></path></svg>
-            <span class="stack-group-title" data-i18n="${g.title}"></span>
-          </div>
-          <div class="stack-items">${itemsHtml}</div>
-        </div>`
-      );
+      const items = g.items.map(name => `<li>${name}</li>`).join("");
+      body.insertAdjacentHTML("beforeend",
+        `<tr><th scope="row" data-i18n="${g.title}"></th><td><ul>${items}</ul></td></tr>`);
     });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     buildAsso(); buildStack();
-    initLang(); initNav(); initReveal(); initTerminal(); initAccordions();
+    initLang(); initAccordions(); initRack(); initPatchPanel();
     document.querySelectorAll(".lang-btn").forEach(btn => {
       btn.addEventListener("click", () => setLang(btn.getAttribute("data-set-lang")));
     });
