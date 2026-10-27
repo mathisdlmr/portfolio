@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1B1D1F">
+    <meta name="theme-color" content="#0B1530">
     <title>Mathis Delmaere - Systems Engineer</title>
     <meta property="og:title" content="Mathis Delmaere - Systems Engineer">
     <meta name="description" content="Portfolio de Mathis Delmaere, étudiant ingénieur UTC spécialisé en ingénierie des systèmes informatiques">
@@ -19,212 +19,313 @@
     <meta name="twitter:title" content="Mathis Delmaere - Systems Engineer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Overpass:wght@400;600;700&family=Overpass+Mono:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <link rel="preload" href="./assets/fedora-44-night.webp" as="image">
     <link rel="stylesheet" href="./style.css">
     <script type="application/ld+json">
         {"@context":"https://schema.org","@type":"Person","name":"Mathis Delmaere","jobTitle":"Systems Engineer","url":"https://github.com/mathisdlmr","sameAs":["https://github.com/mathisdlmr","https://www.linkedin.com/in/mathis-delmaere-6a6325325/"],"email":"mathis.dlmr@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Université de Technologie de Compiègne"},"knowsAbout":["SRE","Infrastructure","Backend","Platform","Cloud","DevOps","Kubernetes","k3s","GitOps","ArgoCD"]}
+    </script>
+    <script>
+        try {
+            if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !location.hash && !sessionStorage.getItem("mdlmr-intro"))
+                document.documentElement.classList.add("intro");
+        } catch (e) {}
     </script>
     <script src="./i18n.js" defer></script>
     <script src="./script.js" defer></script>
 </head>
 
-<body>
-    <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+<body data-app="desktop">
 
-    <!-- La page est une baie : chaque section est un équipement monté sur les rails,
-         sa hauteur est arrondie à l'unité de baie (1U = 44px) par script.js. -->
-    <div class="rack" id="top">
+    <!-- Logos (simple-icons, CC0 ; Octicons, MIT), utilisés via <use href="#i-…"> -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-branch" viewBox="0 0 16 16"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"/></symbol>
+        <symbol id="i-fedora" viewBox="0 0 24 24"><path d="M12.001 0C5.376 0 .008 5.369.004 11.992H.002v9.287h.002A2.726 2.726 0 0 0 2.73 24h9.275c6.626-.004 11.993-5.372 11.993-11.997C23.998 5.375 18.628 0 12 0zm2.431 4.94c2.015 0 3.917 1.543 3.917 3.671 0 .197.001.395-.03.619a1.002 1.002 0 0 1-1.137.893 1.002 1.002 0 0 1-.842-1.175 2.61 2.61 0 0 0 .013-.337c0-1.207-.987-1.672-1.92-1.672-.934 0-1.775.784-1.777 1.672.016 1.027 0 2.046 0 3.07l1.732-.012c1.352-.028 1.368 2.009.016 1.998l-1.748.013c-.004.826.006.677.002 1.093 0 0 .015 1.01-.016 1.776-.209 2.25-2.124 4.046-4.424 4.046-2.438 0-4.448-1.993-4.448-4.437.073-2.515 2.078-4.492 4.603-4.469l1.409-.01v1.996l-1.409.013h-.007c-1.388.04-2.577.984-2.6 2.47a2.438 2.438 0 0 0 2.452 2.439c1.356 0 2.441-.987 2.441-2.437l-.001-7.557c0-.14.005-.252.02-.407.23-1.848 1.883-3.256 3.754-3.256z"/></symbol>
+        <symbol id="i-files" viewBox="0 0 16 16"><path d="M0 2.75C0 1.784.784 1 1.75 1H5c.55 0 1.07.26 1.4.7l.9 1.2a.25.25 0 0 0 .2.1h6.75c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25Zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25H7.5c-.55 0-1.07-.26-1.4-.7l-.9-1.2a.25.25 0 0 0-.2-.1Z"/></symbol>
+        <symbol id="i-firefoxbrowser" viewBox="0 0 24 24"><path d="M8.824 7.287c.008 0 .004 0 0 0zm-2.8-1.4c.006 0 .003 0 0 0zm16.754 2.161c-.505-1.215-1.53-2.528-2.333-2.943.654 1.283 1.033 2.57 1.177 3.53l.002.02c-1.314-3.278-3.544-4.6-5.366-7.477-.091-.147-.184-.292-.273-.446a3.545 3.545 0 01-.13-.24 2.118 2.118 0 01-.172-.46.03.03 0 00-.027-.03.038.038 0 00-.021 0l-.006.001a.037.037 0 00-.01.005L15.624 0c-2.585 1.515-3.657 4.168-3.932 5.856a6.197 6.197 0 00-2.305.587.297.297 0 00-.147.37c.057.162.24.24.396.17a5.622 5.622 0 012.008-.523l.067-.005a5.847 5.847 0 011.957.222l.095.03a5.816 5.816 0 01.616.228c.08.036.16.073.238.112l.107.055a5.835 5.835 0 01.368.211 5.953 5.953 0 012.034 2.104c-.62-.437-1.733-.868-2.803-.681 4.183 2.09 3.06 9.292-2.737 9.02a5.164 5.164 0 01-1.513-.292 4.42 4.42 0 01-.538-.232c-1.42-.735-2.593-2.121-2.74-3.806 0 0 .537-2 3.845-2 .357 0 1.38-.998 1.398-1.287-.005-.095-2.029-.9-2.817-1.677-.422-.416-.622-.616-.8-.767a3.47 3.47 0 00-.301-.227 5.388 5.388 0 01-.032-2.842c-1.195.544-2.124 1.403-2.8 2.163h-.006c-.46-.584-.428-2.51-.402-2.913-.006-.025-.343.176-.389.206-.406.29-.787.616-1.136.974-.397.403-.76.839-1.085 1.303a9.816 9.816 0 00-1.562 3.52c-.003.013-.11.487-.19 1.073-.013.09-.026.181-.037.272a7.8 7.8 0 00-.069.667l-.002.034-.023.387-.001.06C.386 18.795 5.593 24 12.016 24c5.752 0 10.527-4.176 11.463-9.661.02-.149.035-.298.052-.448.232-1.994-.025-4.09-.753-5.844z"/></symbol>
+        <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+        <symbol id="i-gnometerminal" viewBox="0 0 24 24"><path d="M1.846 0A1.841 1.841 0 000 1.846v18.463c0 1.022.823 1.845 1.846 1.845h20.308A1.841 1.841 0 0024 20.31V1.846A1.841 1.841 0 0022.154 0H1.846zm0 .924h20.308c.512 0 .922.41.922.922v18.463c0 .511-.41.921-.922.921H1.846a.919.919 0 01-.922-.921V1.846c0-.512.41-.922.922-.922zm0 .922v18.463h20.308V1.846H1.846zm1.845 2.14l3.235 1.758v.836L3.69 8.477V7.385l2.243-1.207v-.033L3.69 5.076v-1.09zM7.846 9.23h3.693v.924H7.846V9.23zM0 21.736v.418C0 23.177.823 24 1.846 24h20.308A1.841 1.841 0 0024 22.154v-.418a2.334 2.334 0 01-1.846.918H1.846A2.334 2.334 0 010 21.736Z"/></symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+        <symbol id="i-markdown" viewBox="0 0 24 24"><path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/></symbol>
+        <symbol id="i-notion" viewBox="0 0 24 24"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></symbol>
+        <symbol id="i-renovate" viewBox="0 0 24 24"><path d="M7.598 0A1.7 1.7 0 0 0 6.37.465a1.71 1.71 0 0 0-.072 2.421l.002.002L8.91 5.65a.623.623 0 0 1-.025.891.625.625 0 0 1-.89-.027l-1.26-1.332a1.727 1.727 0 0 0-2.428-.073 1.71 1.71 0 0 0-.075 2.422v.002l1.88 1.988a.626.626 0 0 1-.026.891.623.623 0 0 1-.89-.027h-.003l-.685-.729-.014-.02a1.73 1.73 0 0 0-2.427-.073 1.71 1.71 0 0 0-.074 2.423l2.253 2.444.006.008.352.363q.004-.06.013-.117a1.75 1.75 0 0 0 .488 1.47l.141.143 1.29 1.28c.68.68 1.795.68 2.474 0l.523-.522 1.588-1.582 1.102-1.09 1.77-1.766 2.532-2.52v-.003a1.745 1.745 0 0 0 0-2.463l-.443-.442a1.295 1.295 0 0 1 1.576.202l1.057 1.054c.904.905.905 2.353.002 3.248v.002l-3.496 3.48h-.002c-.56.56-.56 1.477.004 2.03l.504.498-.676.674a.51.51 0 0 0-.031.69l.15.185h.008l2.488-2.49-.184-.15a.52.52 0 0 0-.357-.116.53.53 0 0 0-.334.15l-.648.647-.51-.504h-.002a.84.84 0 0 1 .004-1.201l3.494-3.48a2.88 2.88 0 0 0 .002-4.075l-1.06-1.056a1.88 1.88 0 0 0-1.33-.55c-.38 0-.76.116-1.083.343l-.564-.563a1.74 1.74 0 0 0-1.237-.508v-.002a2 2 0 0 0-.205.014l-.937-1.03-.008-.005-1.28-1.358L8.8.538A1.73 1.73 0 0 0 7.6.002ZM7.58.635a1.08 1.08 0 0 1 .756.344l2.63 2.778 1.278 1.353.744.82a1.7 1.7 0 0 0-.367.278l-3.91 3.895-3.606 3.587a1.8 1.8 0 0 0-.308.426l.01-.021-.094-.098-2.253-2.443-.004-.002a1.063 1.063 0 0 1 .042-1.522l.004-.002a1.08 1.08 0 0 1 1.527.041l.002.012.701.74a1.27 1.27 0 0 0 1.79.057 1.27 1.27 0 0 0 .056-1.79h-.002l-1.88-1.989v-.002a1.06 1.06 0 0 1 .042-1.522 1.08 1.08 0 0 1 1.533.045l1.256 1.33a1.27 1.27 0 0 0 1.791.057 1.27 1.27 0 0 0 .055-1.79h-.002l-2.61-2.763a1.06 1.06 0 0 1 .042-1.52A1.08 1.08 0 0 1 7.58.635m6.277 5.696c.143 0 .285.03.418.084a1.1 1.1 0 0 0-.418-.084m.44.096q.19.08.346.232a1.1 1.1 0 0 0-.346-.232m-9.52 7.732a1.8 1.8 0 0 0-.154.473 1.7 1.7 0 0 1 .154-.473m13.397 3.037-2.557 2.557 2.848 3.435q.065.075.14.15c.875.873 2.317.89 3.206 0a2.25 2.25 0 0 0-.152-3.33z"/></symbol>
+        <symbol id="i-slack" viewBox="0 0 24 24"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></symbol>
+        <symbol id="i-thunderbird" viewBox="0 0 24 24"><path d="M9.948 4.444h-.005c-1.92.788-2.126 2.55-1.817 3.499v.02C9.236 7.18 10.658 6.76 12 6.76c3.26 0 5.902 2.156 5.902 4.815 0 2.66-2.643 4.816-5.902 4.816l-.083-.002c-.155-.006-.354-.013-.435.118-.096.156.116.397.238.536 1.274 1.441 3.123 1.622 3.608 1.67l.076.008c-4.281.414-9.304-2.32-9.306-7.076 0-1.12.414-2.073 1.075-2.83l-.005-.002h-.003C7.31 6.38 6.376 3.47 4.629 2.898c-.124-.04-.246.054-.262.183-.23 1.924-.727 2.59-1.264 3.31-.805 1.08-1.39 2.328-1.365 3.698a10.99 10.99 0 0 1-.705-1.91c-.024-.09-.17-.365-.333-.272-.13.072-.227.274-.296.485A12.137 12.137 0 0 0 0 11.489c0 6.536 5.475 12 12 12 6.627 0 12-5.372 12-12 0-2.526-.781-4.87-2.115-6.805l.167-.002c.518 0 1.024.045 1.51.129-.734-.816-1.724-1.475-2.877-1.904a8.54 8.54 0 0 1 2.494-.495c-1.426-1.166-3.508-1.9-5.827-1.9-3.355 0-6.648 1.29-7.404 3.93zm.682 9.166c-.87-.905-3.473-3.91-3.473-3.91l.202.01 4.075 3.042c.305.223.74.22 1.043-.004l3.996-3.034.212-.018s-2.518 2.935-3.483 3.9c-.964.968-1.703.919-2.572.014zm2.774-10.083s.055.625-.576.824c-.722.227-1.042-.38-1.042-.38s.09-.417.676-.61c.626-.206.942.166.942.166z"/></symbol>
+        <symbol id="i-visualstudiocode" viewBox="0 0 24 24"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 16 16"><path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8.75-4.25v3.94l2.53 2.53-1.06 1.06L7.25 8.31V3.75h1.5Z"/></symbol>
+    </svg>
 
-        <!-- PANNEAU DE BRASSAGE : navigation -->
-        <nav id="main-nav" class="device device--dark patch" aria-labelledby="patch-label">
-            <span id="patch-label" class="visually-hidden" data-i18n="patch_label">Panneau de brassage : navigation</span>
-            <ol class="ports">
-                <li><a class="port" href="#about"><span class="port-n">1</span><span class="led" aria-hidden="true"></span><span class="jack" aria-hidden="true"></span><span class="tape tape--sm" data-i18n="nav_about">profil</span></a></li>
-                <li><a class="port" href="#k3s"><span class="port-n">2</span><span class="led" aria-hidden="true"></span><span class="jack" aria-hidden="true"></span><span class="tape tape--sm" data-i18n="nav_project">cluster</span></a></li>
-                <li><a class="port" href="#path"><span class="port-n">3</span><span class="led" aria-hidden="true"></span><span class="jack" aria-hidden="true"></span><span class="tape tape--sm" data-i18n="nav_path">parcours</span></a></li>
-                <li><a class="port" href="#stack"><span class="port-n">4</span><span class="led" aria-hidden="true"></span><span class="jack" aria-hidden="true"></span><span class="tape tape--sm" data-i18n="nav_stack">outils</span></a></li>
-                <li><a class="port" href="#contact"><span class="port-n">5</span><span class="led" aria-hidden="true"></span><span class="jack" aria-hidden="true"></span><span class="tape tape--sm" data-i18n="nav_contact">contact</span></a></li>
-            </ol>
-            <div class="lang-switch" role="group" aria-labelledby="lang-label">
+    <!-- INTRO : le portable s'ouvre, puis on entre dans l'écran -->
+    <div class="intro-screen" id="intro" aria-hidden="true">
+        <div class="scene">
+            <div class="lid"><div class="screen"><span class="boot">mdlmr</span></div></div>
+            <div class="deck"></div>
+        </div>
+    </div>
+
+    <!-- BARRE DE MENUS -->
+    <header class="menubar">
+        <svg class="menubar-fedora" aria-hidden="true"><use href="#i-fedora"/></svg>
+        <span class="menubar-logo">mdlmr</span>
+        <span class="menubar-app" id="menubar-app">Bureau</span>
+        <span class="menubar-end">
+            <span class="lang-switch" role="group" aria-labelledby="lang-label">
                 <span id="lang-label" class="visually-hidden" data-i18n="lang_label">Langue</span>
                 <button class="lang-btn active" data-set-lang="fr">FR</button>
                 <button class="lang-btn" data-set-lang="en">EN</button>
-            </div>
-        </nav>
+            </span>
+            <time id="clock"></time>
+        </span>
+    </header>
 
-        <main id="main">
-
-            <!-- HERO -->
-            <header class="device hero">
-                <div class="hero-main">
-                    <p class="tape tape--asset">mdlmr.fr</p>
-                    <h1 class="name">Mathis Delmaere</h1>
-                    <p class="intro" data-i18n="hero_intro"></p>
-                    <p class="actions">
-                        <a class="button" href="mailto:mathis.dlmr@gmail.com" data-i18n="cta_mail">Écrire un email</a>
-                        <a href="https://github.com/mathisdlmr" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener">LinkedIn</a>
-                    </p>
-                </div>
-                <div class="lcd hero-lcd">
-                    <p class="lcd-title"><span class="led led--on" style="--i:1" aria-hidden="true"></span><span data-i18n="lcd_title">état</span></p>
-                    <dl>
-                        <div><dt data-i18n="f3k"></dt><dd data-i18n="f3v"></dd></div>
-                        <div><dt data-i18n="f4k"></dt><dd data-i18n="f4v"></dd></div>
-                        <div><dt data-i18n="f1k"></dt><dd data-i18n="f1v"></dd></div>
-                        <div><dt data-i18n="f5k"></dt><dd data-i18n="f5v"></dd></div>
-                    </dl>
-                </div>
-            </header>
-
-            <!-- PROFIL -->
-            <section id="about" class="device">
-                <h2 class="tape" data-i18n="about_title">profil</h2>
-                <div class="about-text">
-                    <p data-i18n="about_p1"></p>
-                    <p data-i18n="about_p2"></p>
-                </div>
+    <!-- BUREAU -->
+    <main class="desktop scroll" data-page="desktop" id="main">
+        <div class="widgets">
+            <section class="widget widget--hero" aria-labelledby="name">
+                <h1 id="name">Mathis Delmaere</h1>
+                <p data-i18n="hero_intro"></p>
             </section>
 
-            <!-- CLUSTER -->
-            <section id="k3s" class="device cluster">
-                <h2 class="tape" data-i18n="k3s_title">cluster k3s</h2>
-                <p class="lead" data-i18n="k3s_lead"></p>
-
-                <figure class="shelf">
-                    <div class="nucs">
-                        <div class="nuc"><span class="led led--on" style="--i:2" aria-hidden="true"></span><span class="tape tape--sm">nuc-01</span><span class="nuc-role" data-i18n="nuc_role">control plane</span><span class="usb" aria-hidden="true"></span></div>
-                        <div class="nuc"><span class="led led--on" style="--i:3" aria-hidden="true"></span><span class="tape tape--sm">nuc-02</span><span class="nuc-role" data-i18n="nuc_role">control plane</span><span class="usb" aria-hidden="true"></span></div>
-                        <div class="nuc"><span class="led led--on" style="--i:4" aria-hidden="true"></span><span class="tape tape--sm">nuc-03</span><span class="nuc-role" data-i18n="nuc_role">control plane</span><span class="usb" aria-hidden="true"></span></div>
-                    </div>
-                    <p class="mesh" data-i18n="mesh_label">mesh Tailscale entre les deux logements</p>
-                    <figcaption data-i18n="shelf_label"></figcaption>
-                </figure>
-
-                <p class="lcd lcd--strip"><span class="lcd-k" data-i18n="load_k">charge Ski'UT</span> <span data-i18n="load_v">~150 req/s, pic à 200</span></p>
-
-                <dl class="aspects">
-                    <div>
-                        <dt data-i18n="p1t">Haute disponibilité</dt>
-                        <dd data-i18n="p1b"></dd>
-                        <dd class="tools-line">Tailscale, Cilium, HAProxy, Longhorn</dd>
-                    </div>
-                    <div>
-                        <dt data-i18n="p2t">GitOps</dt>
-                        <dd data-i18n="p2b"></dd>
-                        <dd class="tools-line">Ansible, ArgoCD, External Secrets Operator, Infisical, Renovate</dd>
-                    </div>
-                    <div>
-                        <dt data-i18n="p3t">Observabilité</dt>
-                        <dd data-i18n="p3b"></dd>
-                        <dd class="tools-line">Prometheus, Grafana, Loki, Tempo, OpenTelemetry, EFK</dd>
-                    </div>
-                    <div>
-                        <dt data-i18n="p4t">Réseau</dt>
-                        <dd data-i18n="p4b"></dd>
-                        <dd class="tools-line">Cloudflare, Traefik, Cilium, cert-manager</dd>
-                    </div>
-                </dl>
-
-                <p class="repo-line">
-                    <span data-i18n="k3s_repo">Tout le cluster est décrit en Git et peut se reconstruire de zéro :</span>
-                    <a href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener">github.com/mathisdlmr/k3s-project</a>
+            <!-- Recherche de stage : une barre Firefox, les infos sont l'historique -->
+            <section class="widget widget--search" aria-labelledby="search-title">
+                <p class="ff-bar">
+                    <svg class="ff-logo" aria-hidden="true"><use href="#i-firefoxbrowser"/></svg>
+                    <span id="search-title" data-i18n="w_status">Recherche de stage</span>
                 </p>
+                <ul class="ff-history">
+                    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span class="ff-v" data-i18n="f3v"></span><span class="ff-k" data-i18n="f3k"></span></li>
+                    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span class="ff-v" data-i18n="f4v"></span><span class="ff-k" data-i18n="f4k"></span></li>
+                    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span class="ff-v" data-i18n="f1v"></span><span class="ff-k" data-i18n="f1k"></span></li>
+                    <li><svg aria-hidden="true"><use href="#i-clock"/></svg><span class="ff-v" data-i18n="f5v"></span><span class="ff-k" data-i18n="f5k"></span></li>
+                </ul>
             </section>
 
-            <!-- PARCOURS : deux baies de disques, un tiroir par expérience -->
-            <section id="path" class="device journey">
-                <h2 class="tape" data-i18n="path_title">parcours</h2>
-                <p class="legend"><span class="led led--on" style="--i:5" aria-hidden="true"></span><span data-i18n="led_legend">LED allumée : temps fort</span></p>
-                <div class="bays">
-                    <div class="bay-group">
-                        <h3 class="bay-title" data-i18n="path_pro">Professionnel</h3>
-                        <ol class="sleds">
-                            <li class="entry" id="entry-pro1">
-                                <span class="handle" aria-hidden="true"></span>
-                                <div class="sled-body">
-                                    <p class="sled-top"><span class="tape tape--sm">padoa</span><span class="period" data-i18n="pro1_period"></span><span class="led led--on" style="--i:6" aria-hidden="true"></span></p>
-                                    <h4 class="role" data-i18n="pro1_role"></h4>
-                                    <p class="org" data-i18n="pro1_org"></p>
-                                    <p class="desc" data-i18n="pro1_desc"></p>
-                                    <p class="tools-line">Kubernetes, Helm, ArgoCD, Go, Terraform, Prometheus, Thanos, Grafana</p>
-                                </div>
-                            </li>
-                            <li class="entry" id="entry-pro2">
-                                <span class="handle" aria-hidden="true"></span>
-                                <div class="sled-body">
-                                    <p class="sled-top"><span class="tape tape--sm">utc</span><span class="period" data-i18n="pro2_period"></span><span class="led" aria-hidden="true"></span></p>
-                                    <h4 class="role" data-i18n="pro2_role"></h4>
-                                    <p class="org" data-i18n="pro2_org"></p>
-                                    <p class="desc" data-i18n="pro2_desc"></p>
-                                </div>
-                            </li>
-                            <li class="entry" id="entry-pro3">
-                                <span class="handle" aria-hidden="true"></span>
-                                <div class="sled-body">
-                                    <p class="sled-top"><span class="tape tape--sm">chanel</span><span class="period" data-i18n="pro3_period"></span><span class="led" aria-hidden="true"></span></p>
-                                    <h4 class="role" data-i18n="pro3_role"></h4>
-                                    <p class="org" data-i18n="pro3_org"></p>
-                                    <p class="desc" data-i18n="pro3_desc"></p>
-                                </div>
-                            </li>
-                            <li class="entry" id="entry-pro4">
-                                <span class="handle" aria-hidden="true"></span>
-                                <div class="sled-body">
-                                    <p class="sled-top"><span class="tape tape--sm">freelance</span><span class="period" data-i18n="pro4_period"></span><span class="led" aria-hidden="true"></span></p>
-                                    <h4 class="role" data-i18n="pro4_role"></h4>
-                                    <p class="org" data-i18n="pro4_org"></p>
-                                    <p class="desc" data-i18n="pro4_desc"></p>
-                                    <p class="tools-line">HTML, CSS, JavaScript, OVH</p>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="bay-group">
-                        <h3 class="bay-title" data-i18n="path_asso">Associatif</h3>
-                        <ol class="sleds" id="asso-list"></ol>
-                    </div>
+            <button class="widget widget--cluster" data-open="k3s">
+                <span class="widget-title" data-i18n="w_cluster">Cluster k3s</span>
+                <span class="node"><i class="dot"></i>nuc-01<b>UP</b><span data-ping>12 ms</span></span>
+                <span class="node"><i class="dot"></i>nuc-02<b>UP</b><span data-ping>15 ms</span></span>
+                <span class="node"><i class="dot"></i>nuc-03<b>UP</b><span data-ping>18 ms</span></span>
+            </button>
+        </div>
+
+        <!-- Raccourcis du bureau -->
+        <ul class="desk-icons">
+            <li><button class="desk-icon" data-open="contact"><span class="desk-icon-img app-mail"><svg aria-hidden="true"><use href="#i-thunderbird"/></svg></span><span data-i18n="cta_mail">Écrire un mail</span></button></li>
+            <li><a class="desk-icon" href="https://github.com/mathisdlmr" target="_blank" rel="noopener"><span class="desk-icon-img app-gh"><svg aria-hidden="true"><use href="#i-github"/></svg></span>GitHub</a></li>
+            <li><a class="desk-icon" href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener"><span class="desk-icon-img app-in"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></span>LinkedIn</a></li>
+        </ul>
+
+        <p class="desk-hint" data-i18n="desk_hint">Faites défiler pour ouvrir mon profil</p>
+    </main>
+
+    <!-- FENÊTRES : chaque zone défilante [data-page] est une étape du défilement -->
+
+    <!-- PROFIL : Notion -->
+    <article class="window win-notion" data-app="Notion" id="about" hidden aria-labelledby="notion-title">
+        <div class="titlebar">
+            <span class="lights"><button class="light light--close" data-close><span class="visually-hidden" data-i18n="close_label">Fermer</span></button><i class="light"></i><i class="light"></i></span>
+            <span class="titlebar-text"><span data-i18n="nav_about">profil</span> / Mathis Delmaere</span>
+        </div>
+        <div class="scroll" data-page="about" tabindex="-1">
+            <div class="notion-cover" aria-hidden="true"></div>
+            <div class="notion-page">
+                <span class="notion-icon" aria-hidden="true">MD</span>
+                <h2 class="notion-title" id="notion-title">Mathis Delmaere</h2>
+                <dl class="notion-props">
+                    <div><dt data-i18n="f1k"></dt><dd data-i18n="f1v"></dd></div>
+                    <div><dt data-i18n="f3k"></dt><dd><span class="tag" data-i18n="f3v"></span></dd></div>
+                    <div><dt data-i18n="f4k"></dt><dd data-i18n="f4v"></dd></div>
+                    <div><dt data-i18n="f5k"></dt><dd data-i18n="f5v"></dd></div>
+                    <div><dt data-i18n="contact_lang_label"></dt><dd data-i18n="contact_langs"></dd></div>
+                </dl>
+                <p data-i18n="about_p1"></p>
+                <p data-i18n="about_p2"></p>
+            </div>
+            <button class="next" data-open="k3s"><span data-i18n="next">Ensuite</span> <b>Visual Studio Code</b><span class="next-bar"></span></button>
+        </div>
+    </article>
+
+    <!-- CLUSTER : VS Code -->
+    <article class="window win-code" data-app="Visual Studio Code" id="k3s" hidden aria-labelledby="code-title">
+        <div class="titlebar">
+            <span class="lights"><button class="light light--close" data-close><span class="visually-hidden" data-i18n="close_label">Fermer</span></button><i class="light"></i><i class="light"></i></span>
+            <span class="titlebar-text">README.md — k3s-project</span>
+        </div>
+        <div class="code-layout">
+            <nav class="code-activity">
+                <span class="act active" aria-hidden="true"><svg><use href="#i-files"/></svg></span>
+                <a class="act" href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener" title="github.com/mathisdlmr/k3s-project">
+                    <svg aria-hidden="true"><use href="#i-branch"/></svg><span class="visually-hidden" data-i18n="repo_link">Ouvrir le dépôt sur GitHub</span>
+                </a>
+            </nav>
+            <nav class="code-tree" aria-hidden="true">
+                <p class="code-tree-title" data-i18n="vs_explorer">Explorateur</p>
+                <ul>
+                    <li class="root">k3s-project</li>
+                    <li class="dir">ansible</li>
+                    <li class="md">CHANGELOG.md</li>
+                    <li class="dir">docs</li>
+                    <li class="dir">kubernetes</li>
+                    <li class="md active">README.md</li>
+                    <li class="json">renovate.json</li>
+                    <li class="dir">scripts</li>
+                    <li class="md">todo.md</li>
+                </ul>
+            </nav>
+            <div class="code-main">
+                <p class="code-tab">README.md</p>
+                <div class="scroll code" data-page="k3s" tabindex="-1">
+                    <h2 class="l h1" id="code-title"># k3s-project</h2>
+                    <p class="l"></p>
+                    <p class="l quote" data-i18n="k3s_lead"></p>
+                    <p class="l"></p>
+                    <h3 class="l h2"><span>## </span><span data-i18n="p1t"></span></h3>
+                    <p class="l" data-i18n="p1b"></p>
+                    <p class="l stack">`Tailscale` `Cilium` `HAProxy` `Longhorn`</p>
+                    <p class="l"></p>
+                    <h3 class="l h2"><span>## </span><span data-i18n="p2t"></span></h3>
+                    <p class="l" data-i18n="p2b"></p>
+                    <p class="l stack">`Ansible` `ArgoCD` `External Secrets Operator` `Infisical` `Renovate`</p>
+                    <p class="l"></p>
+                    <h3 class="l h2"><span>## </span><span data-i18n="p3t"></span></h3>
+                    <p class="l" data-i18n="p3b"></p>
+                    <p class="l stack">`Prometheus` `Grafana` `Loki` `Tempo` `OpenTelemetry` `EFK`</p>
+                    <p class="l"></p>
+                    <h3 class="l h2"><span>## </span><span data-i18n="p4t"></span></h3>
+                    <p class="l" data-i18n="p4b"></p>
+                    <p class="l stack">`Cloudflare` `Traefik` `Cilium` `cert-manager`</p>
+                    <p class="l"></p>
+                    <p class="l"><span data-i18n="k3s_repo"></span> <a href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener">github.com/mathisdlmr/k3s-project</a></p>
+                    <button class="next" data-open="path"><span data-i18n="next">Ensuite</span> <b>Slack</b><span class="next-bar"></span></button>
                 </div>
-            </section>
+                <p class="code-status">
+                    <a href="https://github.com/mathisdlmr/k3s-project" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-branch"/></svg>main</a>
+                </p>
+            </div>
+        </div>
+    </article>
 
-            <!-- OUTILS -->
-            <section id="stack" class="device tools">
-                <h2 class="tape" data-i18n="stack_title">outils</h2>
-                <table class="tools-table">
-                    <tbody id="stack-grid"></tbody>
-                </table>
-                <p class="note" data-i18n="stack_note"></p>
-            </section>
+    <!-- PARCOURS : Slack, un canal par type d'expérience -->
+    <article class="window win-slack" data-app="Slack" id="path" hidden aria-label="Slack">
+        <div class="titlebar">
+            <span class="lights"><button class="light light--close" data-close><span class="visually-hidden" data-i18n="close_label">Fermer</span></button><i class="light"></i><i class="light"></i></span>
+            <span class="titlebar-text">mdlmr — Slack</span>
+        </div>
+        <div class="slack-layout">
+            <nav class="slack-side">
+                <p class="slack-ws">mdlmr</p>
+                <p class="slack-section" data-i18n="slack_channels">Canaux</p>
+                <button class="slack-ch" data-open="path"># <span data-i18n="ch_pro">parcours-professionnel</span></button>
+                <button class="slack-ch" data-open="path-asso"># <span data-i18n="ch_asso">parcours-associatif</span></button>
+                <span class="slack-ch slack-ch--idle"># <span data-i18n="ch_next">prochains-projets</span></span>
+                <span class="slack-ch slack-ch--idle"># <span data-i18n="ch_research">recherches</span></span>
+                <span class="slack-ch slack-ch--idle"># <span data-i18n="ch_try">techno-a-essayer</span></span>
+            </nav>
+            <div class="slack-main">
+                <div class="scroll slack-chan" data-page="path" tabindex="-1">
+                    <h2 class="slack-head"># <span data-i18n="ch_pro">parcours-professionnel</span></h2>
+                    <ol class="msgs">
+                        <li class="msg entry" id="entry-pro1">
+                            <span class="avatar" aria-hidden="true">MD</span>
+                            <div class="msg-body">
+                                <p class="msg-meta"><b>Mathis Delmaere</b> <span data-i18n="pro1_period"></span></p>
+                                <p class="msg-role"><strong data-i18n="pro1_role"></strong></p>
+                                <p class="msg-org" data-i18n="pro1_org"></p>
+                                <p data-i18n="pro1_desc"></p>
+                                <p><code>Kubernetes, Helm, ArgoCD, Go, Terraform, Prometheus, Thanos, Grafana</code></p>
+                                <span class="reaction"><span aria-hidden="true">⭐</span> 1<span class="visually-hidden" data-i18n="hl_label">temps fort</span></span>
+                            </div>
+                        </li>
+                        <li class="msg entry" id="entry-pro2">
+                            <span class="avatar" aria-hidden="true">MD</span>
+                            <div class="msg-body">
+                                <p class="msg-meta"><b>Mathis Delmaere</b> <span data-i18n="pro2_period"></span></p>
+                                <p class="msg-role"><strong data-i18n="pro2_role"></strong></p>
+                                <p class="msg-org" data-i18n="pro2_org"></p>
+                                <p data-i18n="pro2_desc"></p>
+                            </div>
+                        </li>
+                        <li class="msg entry" id="entry-pro3">
+                            <span class="avatar" aria-hidden="true">MD</span>
+                            <div class="msg-body">
+                                <p class="msg-meta"><b>Mathis Delmaere</b> <span data-i18n="pro3_period"></span></p>
+                                <p class="msg-role"><strong data-i18n="pro3_role"></strong></p>
+                                <p class="msg-org" data-i18n="pro3_org"></p>
+                                <p data-i18n="pro3_desc"></p>
+                            </div>
+                        </li>
+                        <li class="msg entry" id="entry-pro4">
+                            <span class="avatar" aria-hidden="true">MD</span>
+                            <div class="msg-body">
+                                <p class="msg-meta"><b>Mathis Delmaere</b> <span data-i18n="pro4_period"></span></p>
+                                <p class="msg-role"><strong data-i18n="pro4_role"></strong></p>
+                                <p class="msg-org" data-i18n="pro4_org"></p>
+                                <p data-i18n="pro4_desc"></p>
+                                <p><code>HTML, CSS, JavaScript, OVH</code></p>
+                            </div>
+                        </li>
+                    </ol>
+                    <button class="next" data-open="path-asso"><span data-i18n="next">Ensuite</span> <b># <span data-i18n="ch_asso">parcours-associatif</span></b><span class="next-bar"></span></button>
+                </div>
+                <div class="scroll slack-chan" data-page="path-asso" id="path-asso" tabindex="-1" hidden>
+                    <h2 class="slack-head"># <span data-i18n="ch_asso">parcours-associatif</span></h2>
+                    <ol class="msgs" id="asso-list"></ol>
+                    <button class="next" data-open="stack"><span data-i18n="next">Ensuite</span> <b>Terminal</b><span class="next-bar"></span></button>
+                </div>
+            </div>
+        </div>
+    </article>
 
-            <!-- CONTACT : le pare-feu, avec ses règles entrantes -->
-            <section id="contact" class="device contact">
-                <h2 class="tape" data-i18n="contact_title">contact</h2>
-                <p class="lead" data-i18n="contact_lead"></p>
-                <table class="fw">
-                    <caption data-i18n="fw_rules">Règles entrantes</caption>
-                    <thead>
-                        <tr><th scope="col" data-i18n="fw_n">n°</th><th scope="col" data-i18n="fw_action">action</th><th scope="col" data-i18n="fw_proto">proto</th><th scope="col" data-i18n="fw_dest">destination</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1</td><td class="accept">accept</td><td>smtp</td><td><a href="mailto:mathis.dlmr@gmail.com">mathis.dlmr@gmail.com</a></td></tr>
-                        <tr><td>2</td><td class="accept">accept</td><td>https</td><td><a href="https://github.com/mathisdlmr" target="_blank" rel="noopener">github.com/mathisdlmr</a></td></tr>
-                        <tr><td>3</td><td class="accept">accept</td><td>https</td><td><a href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener">linkedin.com/in/mathis-delmaere</a></td></tr>
-                    </tbody>
-                    <tfoot>
-                        <tr><td colspan="4" data-i18n="fw_policy">politique par défaut : drop</td></tr>
-                    </tfoot>
-                </table>
-                <p class="langs"><span class="langs-k" data-i18n="contact_lang_label">langues</span> <span data-i18n="contact_langs"></span></p>
-            </section>
-        </main>
+    <!-- OUTILS : Terminal, sortie façon `eza --icons` -->
+    <article class="window win-term" data-app="Terminal" id="stack" hidden aria-labelledby="term-title">
+        <div class="titlebar">
+            <span class="lights"><button class="light light--close" data-close><span class="visually-hidden" data-i18n="close_label">Fermer</span></button><i class="light"></i><i class="light"></i></span>
+            <span class="titlebar-text">mdlmr@homelab: ~/stack</span>
+        </div>
+        <div class="scroll term" data-page="stack" tabindex="-1">
+            <h2 class="visually-hidden" id="term-title" data-i18n="nav_stack">outils</h2>
+            <div id="stack-grid"></div>
+            <p class="t-cmt"># <span data-i18n="stack_note"></span></p>
+            <p><span class="t-prompt">mdlmr@homelab ~/stack %</span> <span class="t-cursor" aria-hidden="true"></span></p>
+            <button class="next" data-open="contact"><span data-i18n="next">Ensuite</span> <b>Thunderbird</b><span class="next-bar"></span></button>
+        </div>
+    </article>
 
-        <!-- PDU -->
-        <footer class="device device--dark pdu">
-            <span class="outlets" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-            <span>© 2026 Mathis Delmaere</span>
-            <span data-i18n="footer_note">Servi depuis mon cluster k3s.</span>
-        </footer>
-    </div>
+    <!-- CONTACT : Thunderbird, nouveau message -->
+    <article class="window win-mail" data-app="Thunderbird" id="contact" hidden aria-labelledby="mail-title">
+        <div class="titlebar">
+            <span class="lights"><button class="light light--close" data-close><span class="visually-hidden" data-i18n="close_label">Fermer</span></button><i class="light"></i><i class="light"></i></span>
+            <span class="titlebar-text" id="mail-title" data-i18n="mail_new">Nouveau message</span>
+            <a class="mail-send" href="mailto:mathis.dlmr@gmail.com?subject=Stage%20de%20fin%20d%27%C3%A9tudes" data-i18n="mail_send">Envoyer</a>
+        </div>
+        <div class="scroll mail" data-page="contact" tabindex="-1">
+            <p class="mail-field"><span data-i18n="mail_to">À :</span> <a href="mailto:mathis.dlmr@gmail.com">mathis.dlmr@gmail.com</a></p>
+            <p class="mail-field"><span data-i18n="mail_subject">Objet :</span> <span data-i18n="mail_subject_v"></span></p>
+            <div class="mail-body">
+                <p data-i18n="contact_lead"></p>
+                <p class="mail-sign">
+                    Mathis Delmaere<br>
+                    <a href="https://github.com/mathisdlmr" target="_blank" rel="noopener">github.com/mathisdlmr</a><br>
+                    <a href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener">linkedin.com/in/mathis-delmaere</a><br>
+                    <span data-i18n="contact_langs"></span>
+                </p>
+                <p class="mail-foot"><span data-i18n="footer_note"></span><br><span data-i18n="wall_credit"></span></p>
+            </div>
+        </div>
+    </article>
+
+    <!-- DOCK -->
+    <nav class="dock" aria-labelledby="dock-label">
+        <span id="dock-label" class="visually-hidden" data-i18n="dock_label">Sections</span>
+        <button class="app app-notion" data-open="about" title="Notion"><svg aria-hidden="true"><use href="#i-notion"/></svg><span class="visually-hidden" data-i18n="nav_about">profil</span></button>
+        <button class="app app-code" data-open="k3s" title="Visual Studio Code"><svg aria-hidden="true"><use href="#i-visualstudiocode"/></svg><span class="visually-hidden" data-i18n="nav_project">cluster</span></button>
+        <button class="app app-slack" data-open="path" title="Slack"><svg aria-hidden="true"><use href="#i-slack"/></svg><span class="visually-hidden" data-i18n="nav_path">parcours</span></button>
+        <button class="app app-term" data-open="stack" title="Terminal"><svg aria-hidden="true"><use href="#i-gnometerminal"/></svg><span class="visually-hidden" data-i18n="nav_stack">outils</span></button>
+        <button class="app app-mail" data-open="contact" title="Thunderbird"><svg aria-hidden="true"><use href="#i-thunderbird"/></svg><span class="visually-hidden" data-i18n="nav_contact">contact</span></button>
+        <span class="dock-sep" aria-hidden="true"></span>
+        <a class="app app-gh" href="https://github.com/mathisdlmr" target="_blank" rel="noopener" title="GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg><span class="visually-hidden">GitHub</span></a>
+        <a class="app app-in" href="https://www.linkedin.com/in/mathis-delmaere-6a6325325/" target="_blank" rel="noopener" title="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg><span class="visually-hidden">LinkedIn</span></a>
+    </nav>
 </body>
 
 </html>
